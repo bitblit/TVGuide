@@ -1,0 +1,211 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.erigir</groupId>
+    <artifactId>tvguide</artifactId>
+    <packaging>jar</packaging>
+    <version>LOCAL-SNAPSHOT</version>
+    <name>TeamViewer Guide</name>
+    <description>Toolkit for interacting with TeamViewers API</description>
+    <inceptionYear>2017</inceptionYear>
+    <url>https://github.com/bitblit/TVGuide</url>
+
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/bitblit/TVGuide/issues</url>
+    </issueManagement>
+
+    <ciManagement>
+    </ciManagement>
+
+    <organization>
+        <name>Erigir</name>
+        <url>http://www.erigir.com</url>
+    </organization>
+
+    <scm>
+        <url>https://github.com/bitblit/TVGuide</url>
+        <connection>scm:https://github.com/bitblit/TVGuide.git</connection>
+        <developerConnection>scm:https://github.com/bitblit/TVGuide.git</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>cweiss</id>
+            <name>Chris Weiss</name>
+            <email>bitblit@gmail.com</email>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>Apache V2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <slf4j.version>1.7.25</slf4j.version>
+        <lombok.version>1.16.16</lombok.version>
+        <logback.version>1.2.3</logback.version>
+        <junit.version>4.12</junit.version>
+        <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
+        <mytime>${maven.build.timestamp}</mytime>
+        <spring.version>4.3.10.RELEASE</spring.version> <!-- use rest template to simplify stuff -->
+    </properties>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!-- Jackson JSON Processor -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+            <version>${junit.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+    </dependencies>
+
+
+    <build>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>build-artifacts.properties</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.4</version>
+                <configuration>
+                    <passphrase>${GPG_PASSPHRASE}</passphrase>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok-maven-plugin</artifactId>
+                <version>1.16.10.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>delombok</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+        </plugins>
+    </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.19</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <distributionManagement>
+        <repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+    </distributionManagement>
+
+
+</project>
