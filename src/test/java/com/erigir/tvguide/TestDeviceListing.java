@@ -1,6 +1,7 @@
 package com.erigir.tvguide;
 
 import com.erigir.tvguide.model.TeamViewerDevice;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ public class TestDeviceListing {
   private static final Logger LOG = LoggerFactory.getLogger(TestDeviceListing.class);
 
   @Test
+  @Ignore
   public void testListAllDevices()
       throws Exception
   {
