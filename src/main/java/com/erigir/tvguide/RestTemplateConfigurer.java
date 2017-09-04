@@ -20,7 +20,7 @@ public class RestTemplateConfigurer {
    * Returns the configured rest template to allow for easy command chaining
    * @param restTemplate RestTemplate to configure
    * @param teamViewerTokenProvider TeamViewerTokenProvider that will provide the login token
-   * @throw IllegalStateException On null restTemplate or teamViewerTokenProvider
+   * @throws IllegalStateException On null restTemplate or teamViewerTokenProvider
    * @return RestTemplate configured
    */
   public static RestTemplate configureRestTemplate(RestTemplate restTemplate, TeamViewerTokenProvider teamViewerTokenProvider)
